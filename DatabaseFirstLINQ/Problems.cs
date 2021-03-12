@@ -17,9 +17,9 @@ namespace DatabaseFirstLINQ
         {
             //ProblemOne();
             //ProblemTwo();
-            //ProblemThree();
-            //ProblemFour();
-            //ProblemFive();
+           // ProblemThree();
+           // ProblemFour();
+            ProblemFive();
             //ProblemSix();
             //ProblemSeven();
             //ProblemEight();
@@ -65,7 +65,7 @@ namespace DatabaseFirstLINQ
             // Then print the name and price of each product from the above query to the console.
             foreach (Product product in products)
             {
-                Console.WriteLine(product.Name, product.Price);
+                Console.WriteLine($"{product.Name} {product.Price}");
             }
             
 
@@ -92,7 +92,7 @@ namespace DatabaseFirstLINQ
             // Then print each user's email and registration date to the console.
             foreach (User user in userReg)
             {
-                Console.WriteLine(user.Email, user.RegistrationDate);
+                Console.WriteLine($"{user.Email} {user.RegistrationDate}");
             }
         }
 
