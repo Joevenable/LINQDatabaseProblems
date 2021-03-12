@@ -65,7 +65,7 @@ namespace DatabaseFirstLINQ
             // Then print the name and price of each product from the above query to the console.
             foreach (Product product in products)
             {
-                Console.WriteLine(products);
+                Console.WriteLine(product.Name, product.Price);
             }
             
 
@@ -74,7 +74,12 @@ namespace DatabaseFirstLINQ
         private void ProblemFour()
         {
             // Write a LINQ query that gets each product that contains an "s" in the products name.
+            var sNames = _context.Products.Where(w => w.Name.Contains("s"));
             // Then print the name of each product from the above query to the console.
+            foreach  (Product product in sNames)
+            {
+                Console.WriteLine(product.Name);
+            }
 
         }
 
