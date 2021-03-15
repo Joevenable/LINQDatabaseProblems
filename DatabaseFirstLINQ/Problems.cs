@@ -301,16 +301,20 @@ namespace DatabaseFirstLINQ
             Console.WriteLine("Please enter your password: ");
             var password = Console.ReadLine();
 
+            // Take the email and password and check if the there is a person that matches that combination.
+            // Print “Signed In!” to the console if they exists and the values match otherwise print “Invalid Email or Password.“.
             var findUser = _context.Users.Where(u => u.Email == email && u.Password == password).SingleOrDefault();
-            if(findUser == null)
+            if (findUser == null)
             {
-
+                Console.WriteLine("Invalid email or password!");
             }
+            else { }
         }
 
         private void BonusTwo()
         {
             // Write a query that finds the total of every users shopping cart products using LINQ.
+            var price = _context.ShoppingCarts.Include(p => p.Product).Where(u => u.User.Email == "oda@gmail.com").Select(sc => sc.Product.Price).Sum();
             // Display the total of each users shopping cart as well as the total of the toals to the console.
         }
 
