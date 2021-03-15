@@ -234,7 +234,10 @@ namespace DatabaseFirstLINQ
         private void ProblemSixteen()
         {
             // Update the price of the product you created to something different using LINQ.
-
+            var price = _context.Products.Where(u => u.Price == 259).SingleOrDefault();
+             price.Price = 1;
+            _context.Products.Update(price);
+            _context.SaveChanges();
         }
 
         private void ProblemSeventeen()
