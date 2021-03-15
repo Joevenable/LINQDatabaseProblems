@@ -24,7 +24,7 @@ namespace DatabaseFirstLINQ
             //ProblemSeven();
             //ProblemEight();
             //ProblemNine();
-            ProblemTen();
+            //ProblemTen();
             //ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
@@ -35,6 +35,7 @@ namespace DatabaseFirstLINQ
             //ProblemEighteen();
             //ProblemNineteen();
             //ProblemTwenty();
+            //BonusTwo();
         }
 
         // <><><><><><><><> R Actions (Read) <><><><><><><><><>
@@ -235,7 +236,7 @@ namespace DatabaseFirstLINQ
         private void ProblemSixteen()
         {
             // Update the price of the product you created to something different using LINQ.
-            var price = _context.Products.Where(p => p.Price == 259).SingleOrDefault();
+            var price = _context.Products.Where(p => p.Name == "Shoe").SingleOrDefault();
             price.Price = 1;
             _context.Products.Update(price);
             _context.SaveChanges();
@@ -262,7 +263,7 @@ namespace DatabaseFirstLINQ
         private void ProblemEighteen()
         {
             // Delete the role relationship from the user who has the email "oda@gmail.com" using LINQ.
-            var userRole = _context.UserRoles.Where(ur => ur.User.Email == "mike@gmail.com").SingleOrDefault();
+            var userRole = _context.UserRoles.Where(ur => ur.User.Email == "odagmail.com").SingleOrDefault();
             _context.UserRoles.Remove(userRole);
             _context.SaveChanges();
         }
@@ -301,6 +302,8 @@ namespace DatabaseFirstLINQ
             Console.WriteLine("Please enter your password: ");
             var password = Console.ReadLine();
 
+            // Take the email and password and check if the there is a person that matches that combination.
+            // Print “Signed In!” to the console if they exists and the values match otherwise print “Invalid Email or Password.“.
             var findUser = _context.Users.Where(u => u.Email == email && u.Password == password).SingleOrDefault();
             if(findUser == null)
             {
@@ -311,6 +314,9 @@ namespace DatabaseFirstLINQ
         private void BonusTwo()
         {
             // Write a query that finds the total of every users shopping cart products using LINQ.
+            var total = _context.ShoppingCarts.Include(p => p.Product).Where(u => u.User.ShoppingCarts != null).Select(sc => sc.Product.Price).Sum();
+            Console.WriteLine(total);
+            Console.ReadLine();
             // Display the total of each users shopping cart as well as the total of the toals to the console.
         }
 
