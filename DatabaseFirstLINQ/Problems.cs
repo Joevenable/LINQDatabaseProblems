@@ -24,7 +24,7 @@ namespace DatabaseFirstLINQ
             //ProblemSeven();
             //ProblemEight();
             //ProblemNine();
-            ProblemTen();
+            //ProblemTen();
             //ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
@@ -156,7 +156,7 @@ namespace DatabaseFirstLINQ
             // Then print the user's email as well as the product's name, price, and quantity to the console.
             foreach (UserRole user in employeeUser)
             {
-                Console.WriteLine($"Email: {user.User.Email} Products: {)} ");
+                Console.WriteLine($"Email: {user.User.Email} Products:  ");
             }
 
 
@@ -181,6 +181,15 @@ namespace DatabaseFirstLINQ
         private void ProblemTwelve()
         {
             // Create a new Product object and add that product to the Products table using LINQ.
+            Product newProduct = new Product()
+            {
+                Name = "Shoe",
+                Description = "Things that go on your feet",
+                Price = 259
+
+            };
+            _context.Products.Add(newProduct);
+            _context.SaveChanges();
 
         }
 
@@ -202,6 +211,17 @@ namespace DatabaseFirstLINQ
         {
             // Add the product you create to the user we created in the ShoppingCart junction table using LINQ.
 
+            var productId = _context.Products.Where(p => p.Name == "Shoe").Select(pr => pr.Id).SingleOrDefault();
+            var userId = _context.Users.Where(u => u.Email == "david@gmail.com").Select(ur => ur.Id).SingleOrDefault();
+
+            ShoppingCart shoppingCart = new ShoppingCart()
+            {
+                ProductId = productId,
+                UserId = userId
+            };
+            _context.ShoppingCarts.Add(shoppingCart);
+            _context.SaveChanges();
+
         }
 
         // <><> U Actions (Update) <><>
@@ -218,6 +238,10 @@ namespace DatabaseFirstLINQ
         private void ProblemSixteen()
         {
             // Update the price of the product you created to something different using LINQ.
+            var price = _context.Products.Where(p => p.Price == 259).SingleOrDefault();
+            price.Price = 1;
+            _context.Products.Update(price);
+            _context.SaveChanges();
 
         }
 
@@ -242,6 +266,9 @@ namespace DatabaseFirstLINQ
         private void ProblemEighteen()
         {
             // Delete the role relationship from the user who has the email "oda@gmail.com" using LINQ.
+            var userRole = _context.UserRoles.Where(ur => ur.User.Email == "mike@gmail.com").SingleOrDefault();
+            _context.UserRoles.Remove(userRole);
+            _context.SaveChanges();
 
         }
 
@@ -260,6 +287,12 @@ namespace DatabaseFirstLINQ
         private void ProblemTwenty()
         {
             // Delete the user with the email "oda@gmail.com" from the Users table using LINQ.
+            var deletedUser = _context.Users.Where(d => d.Email == "oda@gmail.com");
+            foreach (User user in deletedUser)
+            {
+                _context.Users.Remove(user);
+            }
+            _context.SaveChanges();
 
         }
 
@@ -268,8 +301,21 @@ namespace DatabaseFirstLINQ
         private void BonusOne()
         {
             // Prompt the user to enter in an email and password through the console.
+            Console.WriteLine("Please enter your email address: ");
+            var email = Console.ReadLine();
+            Console.WriteLine("Please enter your password: ");
+            var password = Console.ReadLine();
             // Take the email and password and check if the there is a person that matches that combination.
+            User user = new User();
+            var findUser = _context.Users.Where(u => u.Email == email).SingleOrDefault();
+            var findPassword = _context.Users.Where(p => p.Password == password).SingleOrDefault();
+
             // Print "Signed In!" to the console if they exists and the values match otherwise print "Invalid Email or Password.".
+
+            while (true)
+            {
+
+            }
         }
 
         private void BonusTwo()
