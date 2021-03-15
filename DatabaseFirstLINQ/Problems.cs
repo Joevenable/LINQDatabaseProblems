@@ -35,7 +35,7 @@ namespace DatabaseFirstLINQ
             //ProblemEighteen();
             //ProblemNineteen();
             //ProblemTwenty();
-            //BonusTwo();
+            BonusTwo();
         }
 
         // <><><><><><><><> R Actions (Read) <><><><><><><><><>
@@ -316,11 +316,18 @@ namespace DatabaseFirstLINQ
         {
             // Write a query that finds the total of every users shopping cart products using LINQ.
 
-            var total = _context.ShoppingCarts.Include(p => p.Product).Where(u => u.User.ShoppingCarts != null).Select(sc => sc.Product.Price).Sum();
-            Console.WriteLine(total);
-            Console.ReadLine();
+            var TotalUsers = _context.UserRoles.Include(ur => ur.Role).Include(ur => ur.User).Where(ur => ur.Role.RoleName != null);
+            var products = _context.ShoppingCarts.Include(p => p.Product).Include(p => p.User).Where(u => TotalUsers.Any(ep => ep.UserId == u.UserId));
+            foreach (var shopingCartItem in products)
+            {
+
+                 Console.WriteLine($"Email: {shopingCartItem.User.Email} Products: {shopingCartItem.Product.Name} Price: {shopingCartItem.Product.Price*shopingCartItem.Quantity} ");
+            }
 
             // Display the total of each users shopping cart as well as the total of the toals to the console.
+            var total = _context.ShoppingCarts.Include(p => p.Product).Select(p => p.Product.Price*p.Quantity).Sum();
+            Console.WriteLine(total);
+            Console.ReadLine();
         }
 
         // BIG ONE
