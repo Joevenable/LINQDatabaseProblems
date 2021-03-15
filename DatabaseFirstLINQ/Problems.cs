@@ -24,7 +24,7 @@ namespace DatabaseFirstLINQ
             //ProblemSeven();
             //ProblemEight();
             //ProblemNine();
-            //ProblemTen();
+            ProblemTen();
             //ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
@@ -150,13 +150,14 @@ namespace DatabaseFirstLINQ
            
 
             var employeeUser = _context.UserRoles.Include(ur => ur.Role).Include(ur => ur.User).Where(ur => ur.Role.RoleName == "Employee");
-            var products = _context.ShoppingCarts.Include(p => p.Product).Where(u => u.User == employeeUser);
+            var products = _context.ShoppingCarts.Include(p => p.Product).Include(p => p.User).Where(u => employeeUser.Any(ep => ep.UserId == u.UserId)).ToList();
 
 
-            // Then print the user's email as well as the product's name, price, and quantity to the console.
-            foreach (UserRole user in employeeUser)
+
+            //// Then print the user's email as well as the product's name, price, and quantity to the console.
+            foreach (var shopingCartItem in products)
             {
-                Console.WriteLine($"Email: {user.User.Email} Products:  ");
+                Console.WriteLine($"Email: {shopingCartItem.User.Email} Products: {shopingCartItem.Product.Name} Price: {shopingCartItem.Product.Price} Quantity: {shopingCartItem.Quantity} ");
             }
 
 
@@ -295,6 +296,17 @@ namespace DatabaseFirstLINQ
         private void BonusOne()
         {
             // Prompt the user to enter in an email and password through the console.
+            Console.WriteLine("Please enter your email address: ");
+            var email = Console.ReadLine();
+            Console.WriteLine("Please enter your password: ");
+            var password = Console.ReadLine();
+            var findUser = _context.Users.Where(u => u.Email == email && u.Password == password).SingleOrDefault();
+            if(findUser == null)
+            {
+
+            }
+
+
             // Take the email and password and check if the there is a person that matches that combination.
             // Print "Signed In!" to the console if they exists and the values match otherwise print "Invalid Email or Password.".
         }
