@@ -24,11 +24,11 @@ namespace DatabaseFirstLINQ
             //ProblemSeven();
             //ProblemEight();
             //ProblemNine();
-            ProblemTen();
+            //ProblemTen();
             //ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
-            //ProblemFourteen();
+            ProblemFourteen();
             //ProblemFifteen();
             //ProblemSixteen();
             //ProblemSeventeen();
@@ -156,7 +156,7 @@ namespace DatabaseFirstLINQ
             // Then print the user's email as well as the product's name, price, and quantity to the console.
             foreach (UserRole user in employeeUser)
             {
-                Console.WriteLine($"Email: {user.User.Email} Products: {)} ");
+                Console.WriteLine($"Email: {user.User.Email} Products:  ");
             }
 
 
@@ -208,6 +208,15 @@ namespace DatabaseFirstLINQ
         private void ProblemFourteen()
         {
             // Add the product you create to the user we created in the ShoppingCart junction table using LINQ.
+            var productId = _context.Products.Where(p => p.Name == "Shoe").Select(pr => pr.Id).SingleOrDefault();
+            var userId = _context.Users.Where(u => u.Email == "david@gmail.com").Select(ur => ur.Id).SingleOrDefault();
+            ShoppingCart shoppingCart = new ShoppingCart()
+            {
+                ProductId = productId,
+                UserId = userId
+            };
+            _context.ShoppingCarts.Add(shoppingCart);
+            _context.SaveChanges();
 
         }
 
