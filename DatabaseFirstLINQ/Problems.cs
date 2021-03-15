@@ -28,7 +28,7 @@ namespace DatabaseFirstLINQ
             //ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
-            ProblemFourteen();
+            //ProblemFourteen();
             //ProblemFifteen();
             //ProblemSixteen();
             //ProblemSeventeen();
@@ -282,7 +282,12 @@ namespace DatabaseFirstLINQ
         private void ProblemTwenty()
         {
             // Delete the user with the email "oda@gmail.com" from the Users table using LINQ.
-
+            var deletedUser = _context.Users.Where(d => d.Email == "oda@gmail.com");
+            foreach (User user in deletedUser)
+            {
+                _context.Users.Remove(user);
+            }
+            _context.SaveChanges();
         }
 
         // <><><><><><><><> BONUS PROBLEMS <><><><><><><><><>
