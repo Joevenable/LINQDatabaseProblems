@@ -186,11 +186,9 @@ namespace DatabaseFirstLINQ
                 Name = "Shoe",
                 Description = "Things that go on your feet",
                 Price = 259
-
             };
             _context.Products.Add(newProduct);
             _context.SaveChanges();
-
         }
 
         private void ProblemThirteen()
@@ -210,10 +208,8 @@ namespace DatabaseFirstLINQ
         private void ProblemFourteen()
         {
             // Add the product you create to the user we created in the ShoppingCart junction table using LINQ.
-
             var productId = _context.Products.Where(p => p.Name == "Shoe").Select(pr => pr.Id).SingleOrDefault();
             var userId = _context.Users.Where(u => u.Email == "david@gmail.com").Select(ur => ur.Id).SingleOrDefault();
-
             ShoppingCart shoppingCart = new ShoppingCart()
             {
                 ProductId = productId,
@@ -242,7 +238,6 @@ namespace DatabaseFirstLINQ
             price.Price = 1;
             _context.Products.Update(price);
             _context.SaveChanges();
-
         }
 
         private void ProblemSeventeen()
@@ -269,8 +264,8 @@ namespace DatabaseFirstLINQ
             var userRole = _context.UserRoles.Where(ur => ur.User.Email == "mike@gmail.com").SingleOrDefault();
             _context.UserRoles.Remove(userRole);
             _context.SaveChanges();
-
         }
+        
 
         private void ProblemNineteen()
         {
@@ -293,7 +288,6 @@ namespace DatabaseFirstLINQ
                 _context.Users.Remove(user);
             }
             _context.SaveChanges();
-
         }
 
         // <><><><><><><><> BONUS PROBLEMS <><><><><><><><><>
